@@ -1,15 +1,16 @@
 FROM quay.io/nordstrom/baseimage-ubuntu:16.04
 MAINTAINER Store Platform Team "invcldtm@nordstrom.com"
 
-ENV KUBECTL_RELEASE=1.2.2
-ADD SHA256SUMS /tmp/SHA256SUMS
+ARG KUBECTL_RELEASE
+ADD SHA256SUMS.kubectl /tmp/SHA256SUMS.kubectl
 
-RUN apt-get update -qy \
- && apt-get install -qy curl \
- && curl -sLo /tmp/kubectl https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_RELEASE}/bin/linux/amd64/kubectl \
- && cd /tmp/ \
- && sha256sum -c SHA256SUMS \
- && mv /tmp/kubectl /usr/bin/kubectl \
+USER root
+
+RUN curl -sLo /usr/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_RELEASE}/bin/linux/amd64/kubectl \
+ && cd /usr/bin/ \
+ && sha256sum -c /tmp/SHA256SUMS.kubectl \
  && chmod +x /usr/bin/kubectl
+
+USER ubuntu
 
 ENTRYPOINT ["/usr/bin/kubectl"]

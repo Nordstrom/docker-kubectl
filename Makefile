@@ -1,7 +1,7 @@
-container_name := kubectl
-container_registry := quay.io/nordstrom
+image_name := kubectl
+image_registry := quay.io/nordstrom
 kubectl_version := 1.3.6
-container_release := $(kubectl_version)
+image_release := $(kubectl_version)
 
 build := build
 
@@ -14,10 +14,10 @@ build/image: Dockerfile SHA256SUMS.kubectl setup_kubectl.sh
 		-t $(container_name) $(build)
 
 tag/image: build/image
-	docker tag $(container_name) $(container_registry)/$(container_name):$(container_release)
+	docker tag $(image_name) $(image_registry)/$(image_name):$(image_release)
 
 push/image: tag/image
-	docker push $(container_registry)/$(container_name):$(container_release)
+	docker push $(image_registry)/$(image_name):$(image_release)
 
 $(build)/kubectl: | $(build)
 	cd $(build) && curl -sLo kubectl https://storage.googleapis.com/kubernetes-release/release/v$(kubectl_version)/bin/linux/amd64/kubectl

@@ -11,4 +11,7 @@ RUN curl -sLo /usr/bin/kubectl https://storage.googleapis.com/kubernetes-release
  && sha256sum -c /tmp/SHA256SUMS.kubectl \
  && chmod +x /usr/bin/kubectl
 
+ADD setup_kubectl.sh /usr/local/bin
+RUN chmod +x /usr/local/bin/setup_kubectl.sh
+
 ENTRYPOINT ["/usr/bin/kubectl"]

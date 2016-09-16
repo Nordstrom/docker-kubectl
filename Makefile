@@ -7,8 +7,9 @@ build := build
 
 .PHONY: build/image tag/image push/image clean
 
-build/image: SHA256SUMS.kubectl
+build/image: Dockerfile SHA256SUMS.kubectl setup_kubectl.sh
 	cp Dockerfile $(build)
+	cp setup_kubectl.sh $(build)
 	docker build --build-arg KUBECTL_RELEASE=$(kubectl_version) \
 		-t $(container_name) $(build)
 

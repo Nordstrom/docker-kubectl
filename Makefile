@@ -1,7 +1,7 @@
 image_name := kubectl
 image_registry := quay.io/nordstrom
 kubectl_version := 1.3.6
-image_release := $(kubectl_version)
+image_release := $(kubectl_version)-1
 
 build := build
 

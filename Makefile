@@ -22,11 +22,13 @@ tag/image: build/image
 push/image: tag/image
 	docker push $(image_registry)/$(image_name):$(image_release)
 
-build/kubectl: | build
-	curl -sLO $@ https://storage.googleapis.com/kubernetes-release/release/v$(kubectl_version)/bin/linux/amd64/kubectl
-
-SHA256SUMS.kubectl: build/kubectl | build
+# When incrementing kubectl version, update the variable in this file,
+# delete SHA256SUMS.kubectl and this will recreate it
+SHA256SUMS.kubectl: | build/kubectl build
 	cd build && shasum -a256 kubectl > $@
+
+build/kubectl: | build
+	curl -LO $@ https://storage.googleapis.com/kubernetes-release/release/v$(kubectl_version)/bin/linux/amd64/kubectl
 
 build:
 	mkdir -p $@

@@ -6,9 +6,10 @@ ENV KUBECTL_RELEASE ${KUBECTL_RELEASE}
 
 ADD SHA256SUMS.kubectl /tmp/SHA256SUMS.kubectl
 ADD setup_kubectl.sh /usr/local/bin
-RUN chmod +x /usr/local/bin/setup_kubectl.sh
 
 USER root
+
+RUN chmod +x /usr/local/bin/setup_kubectl.sh
 
 RUN apt-get update -qy \
  && apt-get install -qy make gettext-base \

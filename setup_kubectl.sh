@@ -3,14 +3,14 @@
 : ${USER_CERT?"Need to set USER_CERT"}
 : ${USER_KEY?"Need to set USER_KEY"}
 
-if [[ -z ${PLATFORM_URL} ]]; then : ${PLATFORM_ENV?"Need to set PLATFORM_ENV. Valid values: prod, nonprod"}; fi
+if [[ -z ${PLATFORM_URL} ]]; then : ${platform_env?"Need to set platform_env. Valid values: prod, nonprod"}; fi
 
 mkdir -p ~/.kube
 echo "$CA_CERT" > ~/.kube/ca.pem
 echo "$USER_KEY" > ~/.kube/user-key.pem
 echo "$USER_CERT" > ~/.kube/user.pem
 
-platform_url=${PLATFORM_URL:=https://current.platform.${PLATFORM_ENV}.aws.cloud.nordstrom.net}
+platform_url=${PLATFORM_URL:=https://current.platform.${platform_env}.aws.cloud.nordstrom.net}
 
 kubectl config set-cluster platform \
   --server=${platform_url} \

@@ -12,7 +12,7 @@ USER root
 RUN chmod +x /usr/local/bin/setup_kubectl.sh
 
 RUN apt-get update -qy \
- && apt-get install -qy make gettext-base \
+ && apt-get install -qy make gettext-base jq \
  && curl -sLo /usr/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_RELEASE}/bin/linux/amd64/kubectl \
  && cd /usr/bin/ \
  && sha256sum -c /tmp/SHA256SUMS.kubectl \

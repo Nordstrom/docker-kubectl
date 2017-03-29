@@ -13,9 +13,9 @@ build_args += --build-arg KUBECTL_RELEASE=$(kubectl_version)
 
 .PHONY: build/image tag/image push/image clean
 
-build/image: build/SHA256SUMS.kubectl | build
-	cp {Dockerfile,setup_kubectl.sh} build
-	cd build && docker build -t $(image_name) $(build_args) .
+build/image: Dockerfile setup_kubectl.sh | build
+	cp $^ build
+	docker build -t $(image_name) $(build_args) build
 
 tag/image: build/image
 	docker tag $(image_name) $(image_registry)/$(image_name):$(image_release)

@@ -14,3 +14,5 @@ RUN apt-get update -qy \
  && apt-get install -qy make gettext-base jq \
  && curl -sLo /usr/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v${KUBECTL_RELEASE}/bin/linux/amd64/kubectl \
  && chmod +x /usr/bin/kubectl
+
+USER ubuntu

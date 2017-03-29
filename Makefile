@@ -1,12 +1,15 @@
 image_name := kubectl
 image_registry := quay.io/nordstrom
-kubectl_version := 1.5.1
+kubectl_version := 1.5.5
 image_release := $(kubectl_version)-1
 
 build := build
 
 ifdef http_proxy
-build_args := --build-arg=http_proxy=$(http_proxy) --build-arg=https_proxy=$(http_proxy)
+build_args += --build-arg=http_proxy=$(http_proxy)
+build_args += --build-arg=https_proxy=$(http_proxy)
+build_args += --build-arg=HTTP_PROXY=$(http_proxy)
+build_args += --build-arg=HTTPS_PROXY=$(http_proxy)
 endif
 
 build_args += --build-arg KUBECTL_RELEASE=$(kubectl_version)

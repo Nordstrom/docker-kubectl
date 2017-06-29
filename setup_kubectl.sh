@@ -10,7 +10,7 @@ echo "$CA_CERT" > ~/.kube/ca.pem
 echo "$USER_KEY" > ~/.kube/user-key.pem
 echo "$USER_CERT" > ~/.kube/user.pem
 
-platform_url=${PLATFORM_URL:=https://current.platform.${platform_env}.aws.cloud.nordstrom.net}
+platform_url=${PLATFORM_URL:=https://current.platform.r53.nordstrom.net}
 
 kubectl config set-cluster platform \
   --server=${platform_url} \
